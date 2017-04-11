@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Social Network by Sanzhar</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="@Url.Content("~/Content/social/")assets/css/main.css" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body id="top">
+
+    <!-- Header -->
+    <header id="header">
+        @if (Request.IsAuthenticated)
+        {
+            var identity = (HttpContext.Current.User as SocialNetwork.MyPrincipal).Identity as SocialNetwork.MyIdentity;
+            
+            <a href="#" class="image avatar"><img src="@Url.Content("~/Images/")@identity.User.Image" alt="" /></a>
+            <h1>
+                <strong>@identity.User.Name @identity.User.Surname</strong>
+            </h1>
+
+            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+            {
+                @Html.AntiForgeryToken()
+                <a href="javascript:document.getElementById('logoutForm').submit()" class="button small">Logout</a>
+            }
+        }
+        else
+        {
+            <h1>
+            Welcome to <strong>Sanzhar Social</strong> <br />
+            The best social network in the world!
+        </h1>
+        }
+    </header>
+
+    <!-- Main -->
+    <div id="main">
+        @RenderBody()
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <ul class="icons">
+            <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+            <li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+            <li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+            <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+        </ul>
+        <ul class="copyright">
+            <li>&copy; Sanzhar Social</li>
+            <li>Design: <a href="#">Sanzhar Syrgakov</a></li>
+        </ul>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="@Url.Content("~/Content/social/")assets/js/jquery.min.js"></script>
+    <script src="@Url.Content("~/Content/social/")assets/js/jquery.poptrox.min.js"></script>
+    <script src="@Url.Content("~/Content/social/")assets/js/skel.min.js"></script>
+    <script src="@Url.Content("~/Content/social/")assets/js/util.js"></script>
+    <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+    <script src="@Url.Content("~/Content/social/")assets/js/main.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+

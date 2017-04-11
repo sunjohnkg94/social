@@ -1,0 +1,39 @@
+﻿@model SocialNetwork.Models.LoginModel
+
+@{
+    ViewBag.Title = "Log in";
+}
+@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <section>
+		<div class="row uniform 50%">
+            <div class="2u 12u$(xsmall)"></div>
+            <div class="8u 12u$(xsmall) row uniform">
+                <h2>Log in to Sanzhar Social</h2>
+                <div class="12u$ 12u$(xsmall)">
+                    @Html.TextBoxFor(model => model.UserName, new { placeholder = "E-mail" })
+                    @Html.ValidationMessageFor(model => model.UserName)
+                </div>
+                <div class="12u$ 12u$(xsmall)">
+                    @Html.TextBoxFor(model => model.Password, new { type = "password", placeholder = "Password" })
+                    @Html.ValidationMessageFor(model => model.Password)
+                </div>
+                
+                <div class="6u 12u$(xsmall)">
+                    <input type="submit" value="Log in" class="button special fit" />
+                </div>
+                <div class="6u$ 12u$(xsmall)">
+                    <a href="@Url.Action("Register", "Account")" class="button fit">Register</a>
+                </div>
+            </div>
+                    
+            <div class="2u$ 12u$(xsmall)"></div>
+            </div>
+</section>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
